@@ -1,9 +1,9 @@
 package com.mobge.simpleimageprocessing;
 
-public class ScaleFilter extends BaseBufferedFilter{
+public class ScaleValuesFilter extends BaseBufferedFilter{
     private Configuration _configuration;
     private float[] _xScl, _yScl;
-    public ScaleFilter(int width, int height) {
+    public ScaleValuesFilter(int width, int height) {
         super(width, height);
         _xScl = new float[width];
         _yScl = new float[height];
@@ -28,7 +28,7 @@ public class ScaleFilter extends BaseBufferedFilter{
     public void performOperation() {
         ImageData input = getInput(0);
         assertSize(input);
-        ImageData output = getBuffer();
+        ImageData output = _dataBuffer;
 
         float[] fInput = input.getRawData();
         float[] fOutput = output.getRawData();
@@ -57,7 +57,7 @@ public class ScaleFilter extends BaseBufferedFilter{
             }
             break;
         }
-        copyRedToGreenBlue(output);
+        copyRedToGreenBlueIfOut();
         sendOutput(output, 0);
     }
 

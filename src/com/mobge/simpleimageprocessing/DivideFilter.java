@@ -103,7 +103,7 @@ public class DivideFilter extends BaseBufferedFilter {
                 divideWithConstant();
                 break;
         }
-        copyRedToGreenBlue();
+        copyRedToGreenBlueIfOut();
         // endregion
         sendOutput(_dataBuffer, 0);
     }
@@ -197,7 +197,7 @@ public class DivideFilter extends BaseBufferedFilter {
             _this.rangeStart = -1;
             return _this;
         }
-        public static Configuration newScale(){
+        public static Configuration newContrast(){
             Configuration _this = new Configuration();
             _this.mode = Mode.Scale;
             _this.maxValue = 1f;

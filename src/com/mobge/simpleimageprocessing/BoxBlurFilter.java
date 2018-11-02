@@ -26,7 +26,7 @@ public class BoxBlurFilter extends BaseBufferedFilter {
             blur();
         }
 
-        copyRedToGreenBlue();
+        copyRedToGreenBlueIfOut();
         sendOutput(_dataBuffer, 0);
     }
 

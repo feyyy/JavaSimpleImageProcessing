@@ -20,7 +20,7 @@ public class GrowFilter extends BaseBufferedFilter{
         accumV(w, h, _configuration.radius);
         initBinaryBuffer(_dataBuffer);
         accumH(w, h, _configuration.radius);
-        copyRedToGreenBlue(_dataBuffer);
+        copyRedToGreenBlueIfOut();
         sendOutput(_dataBuffer, 0);
     }
 
@@ -102,11 +102,11 @@ public class GrowFilter extends BaseBufferedFilter{
         public float maxGrowColor;
         public int minNeighbourCount;
 
-        public Configuration(int radius, float minGrowColor, float maxGrowColor, int minNeighbourCount) {
+        public Configuration(int radius, float minGrowColor, float maxGrowColor) {
             this.minGrowColor = minGrowColor;
             this.maxGrowColor = maxGrowColor;
             this.radius = radius;
-            this.minNeighbourCount = minNeighbourCount;
+            this.minNeighbourCount = 0;
         }
     }
 }

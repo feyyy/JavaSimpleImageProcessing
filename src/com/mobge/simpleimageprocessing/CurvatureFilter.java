@@ -66,7 +66,7 @@ public class CurvatureFilter extends BaseBufferedFilter{
             }
         }
 
-        copyRedToGreenBlue();
+        copyRedToGreenBlueIfOut();
         sendOutput(_dataBuffer, 0);
     }
 

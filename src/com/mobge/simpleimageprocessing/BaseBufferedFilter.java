@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class BaseBufferedFilter extends Block {
     ImageData _dataBuffer;
+
+
     public BaseBufferedFilter(int width, int height) {
         _dataBuffer = new ImageData(width, height);
         _dataBuffer.clear(1,0,0,0);
@@ -13,7 +15,7 @@ public abstract class BaseBufferedFilter extends Block {
     /**
      * @throws IllegalStateException if dimension of the image is different than the buffer.
      */
-    void assertSize(ImageData image) {
+    protected void assertSize(ImageData image) {
         int w = _dataBuffer.getWidth();
         int h = _dataBuffer.getHeight();
         if(w != image.getWidth() || h != image.getHeight()){
@@ -39,9 +41,10 @@ public abstract class BaseBufferedFilter extends Block {
         }
     }
 
-    void copyRedToGreenBlue() {
-
-        copyRedToGreenBlue(_dataBuffer);
+    protected void copyRedToGreenBlueIfOut() {
+        if(isConnectedToOut()) {
+            copyRedToGreenBlue(_dataBuffer);
+        }
     }
 
     public BufferedImage toBufferedImage() {

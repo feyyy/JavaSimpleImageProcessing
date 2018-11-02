@@ -50,6 +50,9 @@ public abstract class Block {
         c.target = block;
         _connections.add(c);
     }
+    public boolean isConnectedToOut(){
+        return _connections.size() > 0 && (_connections.get(0).target instanceof BlockOut);
+    }
     public void connectOutput(Block block){
         connectOutput(0, block, 0);
     }

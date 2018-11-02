@@ -1,8 +1,11 @@
 package com.mobge.simpleimageprocessing;
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ImageData {
     public static final int OFFSET_A = 3;
@@ -24,6 +27,32 @@ public class ImageData {
         this._width = width;
         this._height = height;
     }
+    public ImageData(File file) throws IOException {
+         this(ImageIO.read(file));
+    }
+
+    public ImageData(BufferedImage image, int width, int height){
+        this(resize(image, width, height));
+    }
+    public ImageData(BufferedImage image){
+        _width = image.getWidth();
+        _height = image.getHeight();
+        int stride = BYTES_PER_PIXEL * _width;
+        _data = new float[stride*_height];
+        int[] line = new int[_width];
+        int offset = 0;
+        for(int y = 0; y < _height; y++) {
+            image.getRGB(0, y, _width, 1, line, 0, _width);
+            for(int x = 0; x < _width; x++, offset += BYTES_PER_PIXEL) {
+                int input = line[x];
+                _data[offset + ImageData.OFFSET_A] = ((input>>24) & 0xff) / 255f;
+                _data[offset + ImageData.OFFSET_R] = ((input>>16) & 0xff) / 255f;
+                _data[offset + ImageData.OFFSET_G] = ((input>> 8) & 0xff) / 255f;
+                _data[offset + ImageData.OFFSET_B] = ((input    ) & 0xff) / 255f;
+            }
+        }
+    }
+
     public ImageData(int width, int height){
         setDimensions(width, height);
     }
@@ -91,7 +120,11 @@ public class ImageData {
     }
     public BufferedImage toResizedBufferedImage(int width, int height) {
         BufferedImage bi = toBufferedImage();
-        if(width == _width && height == _height){
+        return resize(bi, width, height);
+    }
+
+    private static BufferedImage resize(BufferedImage bi, int width, int height){
+        if(bi.getWidth() == width && bi.getHeight() == height){
             return bi;
         }
         Image i = bi.getScaledInstance(width, height, bi.getType());
@@ -102,7 +135,6 @@ public class ImageData {
         g.dispose();
         return result;
     }
-
 
 
     public int getWidth() {

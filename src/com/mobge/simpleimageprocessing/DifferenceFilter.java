@@ -45,7 +45,7 @@ public class DifferenceFilter extends BaseBufferedFilter{
 
                     break;
         }
-        copyRedToGreenBlue();
+        copyRedToGreenBlueIfOut();
         sendOutput(_dataBuffer, 0);
     }
 
