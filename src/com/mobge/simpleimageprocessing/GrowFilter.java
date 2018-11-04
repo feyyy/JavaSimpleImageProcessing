@@ -106,7 +106,7 @@ public class GrowFilter extends BaseBufferedFilter{
             this.minGrowColor = minGrowColor;
             this.maxGrowColor = maxGrowColor;
             this.radius = radius;
-            this.minNeighbourCount = 0;
+            this.minNeighbourCount = 1;
         }
     }
 }
