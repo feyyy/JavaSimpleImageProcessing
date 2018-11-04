@@ -6,6 +6,38 @@ Filters are designed to be connected to each other to create a filter sequence.
 All filters uses a floating point number for each color channel of a pixel.
 
 # Using code
+
+## Gradle
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    implementation 'com.github.feyyy:JavaSimpleImageProcessing:v0.9'
+}    
+```
+
+## Maven
+```
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.github.feyyy</groupId>
+    <artifactId>JavaSimpleImageProcessing</artifactId>
+    <version>v0.9</version>
+</dependency>
+```
+
+## Copy the source code
 Copy "com" folder under src into your src folder
 
 # Sample Usage
